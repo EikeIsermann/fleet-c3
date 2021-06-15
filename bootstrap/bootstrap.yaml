@@ -21,7 +21,7 @@ spec:
   # Any branch can be watched, this field is optional. If not specified the
   # branch is assumed to be master
   #
-  # branch: master
+  branch: main
 
   # A specific commit or tag can also be watched.
   #
@@ -32,7 +32,6 @@ spec:
   # type. Secrets must be of the type "kubernetes.io/ssh-auth" or
   # "kubernetes.io/basic-auth". The secret is assumed to be in the
   # same namespace as the GitRepo
-  #
   clientSecretName: c3-repo-deploy-key
   #
   # If fleet.yaml contains a private Helm repo that requires authentication,
@@ -76,4 +75,6 @@ spec:
   # style. Refer to the "Mapping to Downstream Clusters" docs for
   # more information.
   #
-  # targets: ...
+   targets: 
+   - name: tenantClusters
+     clusterGroup: tenantClusters

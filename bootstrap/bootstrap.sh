@@ -18,5 +18,6 @@ kubectl create secret generic c3-repo-deploy-key -n $namespace --from-file=ssh-p
 #create ca-pem for cluster-agents
 kubectl config view -o json --raw  | jq -j '.clusters[] | select(.name == ("k3d-c3")) | .cluster."certificate-authority-data"'  | base64 -d  > ../c3-ca.pem
 
-#add git repo
-kubectl apply -f bootstrap.yaml
+kubectl apply -f ./token.yaml
+
+kubectl -n $namespace get secret registration-token -o 'jsonpath={.data.values}' | base64 --decode > ../registration.yaml

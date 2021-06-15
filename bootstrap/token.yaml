@@ -1,8 +1,9 @@
+---
 kind: ClusterRegistrationToken
 apiVersion: "fleet.cattle.io/v1alpha1"
 metadata:
-    name: new-token
-    namespace: clusters
+    name: registration-token
+    namespace: cluster-management
 spec:
     # A duration string for how long this token is valid for. A value <= 0 or null means infinite time.
     ttl: "0"
