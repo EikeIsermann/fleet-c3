@@ -29,8 +29,7 @@ subjects:
 - kind: ServiceAccount
   name: tenant-1-admin
   namespace: fleet-system
-  apiGroup: ""
 roleRef:
   kind: Role
   name: tenant-1-admin-role
-  apiGroup: ""
+  apiGroup: rbac.authorization.k8s.io

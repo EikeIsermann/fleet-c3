@@ -1,19 +1,8 @@
-kind: ClusterGroup
-apiVersion: fleet.cattle.io/v1alpha1
-metadata:
-  name: tenant-clusters
-  namespace: cluster-management
-spec:
-  # This is the standard metav1.LabelSelector format to match clusters by labels
-  selector:
-    matchLabels:
-      tenantEnabled: "true"
----
 kind: GitRepo
 apiVersion: fleet.cattle.io/v1alpha1
 metadata:
   # Any name can be used here
-  name: c3-repo
+  name: tenant1-repo
   # For single cluster use fleet-local, otherwise use the namespace of
   # your choosing
   namespace: cluster-management
@@ -22,7 +11,7 @@ spec:
   # clientSecretName will probably need to be set to supply a credential.
   # repo is the only required parameter for a repo to be monitored.
   #
-  repo: git@github.com:EikeIsermann/fleet-c3.git
+  repo: git@github.com:EikeIsermann/fleet-tenant1.git
 
   # Enforce all resources go to this target namespace. If a cluster scoped
   # resource is found the deployment will fail.
@@ -43,7 +32,7 @@ spec:
   # type. Secrets must be of the type "kubernetes.io/ssh-auth" or
   # "kubernetes.io/basic-auth". The secret is assumed to be in the
   # same namespace as the GitRepo
-  clientSecretName: c3-repo-deploy-key
+  clientSecretName: tenant1-repo-deploy-key
   #
   # If fleet.yaml contains a private Helm repo that requires authentication,
   # provide the credentials in a K8s secret and specify them here. Details are provided
@@ -70,8 +59,7 @@ spec:
   # - single-path
   # - multiple-paths/*
   paths:
-  - platform
-  - cluster-administration
+  - service
 
   # The service account that will be used to perform this deployment.
   # This is the name of the service account that exists in the
@@ -80,8 +68,7 @@ spec:
   # hand, most likely coming from another git repo registered with
   # the Fleet manager.
   #
-  # serviceAccount: moreSecureAccountThanClusterAdmin
-
+  serviceAccount: tenant-1-admin
   # Target clusters to deploy to if running Fleet in a multi-cluster
   # style. Refer to the "Mapping to Downstream Clusters" docs for
   # more information.
