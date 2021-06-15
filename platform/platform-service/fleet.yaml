@@ -1,0 +1,6 @@
+namespace: platform-services
+targetCustomizations:
+- name: all
+  helm:
+    values:
+      replication: false

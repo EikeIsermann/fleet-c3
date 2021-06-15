@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: tenant-1
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  creationTimestamp: 
+  name: tenant-1-admin
+  namespace: fleet-system
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  namespace: tenant-1
+  name: tenant-1-admin-role
+rules:
+- apiGroups: ["*"]
+  resources: ["*"]
+  verbs: ["*"]
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: tenant-1-admin-binding
+  namespace: tenant-1
+subjects:
+- kind: ServiceAccount
+  name: tenant-1-admin
+  namespace: fleet-system
+  apiGroup: ""
+roleRef:
+  kind: Role
+  name: tenant-1-admin-role
+  apiGroup: ""
